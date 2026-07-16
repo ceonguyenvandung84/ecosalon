@@ -1,0 +1,19 @@
+name = "ecosalon"
+compatibility_date = "2025-04-01"
+pages_build_output_dir = ".pages-out"
+compatibility_flags = ["nodejs_compat"]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "ecosalon-db"
+database_id = "7c6ba1ec-cc4e-437a-bb71-50054fb52f46"
+migrations_dir = "prisma/migrations"
+migrations_pattern = "prisma/migrations/*/migration.sql"
+
+[[kv_namespaces]]
+binding = "MAINTENANCE_KV"
+id = "bdffd9ca54c241a5abcc1d684b1e2ae8"
+
+[[kv_namespaces]]
+binding = "RATE_LIMIT_KV"
+id = "c393f2ce279e4c43b316fff60eb72d1d"

@@ -1,0 +1,15 @@
+node_modules/
+.next/
+.open-next/
+.pages-out/
+dev.db
+dev.db-journal
+*.log
+.env
+.env.local
+.env.production
+.DS_Store
+*.tsbuildinfo
+.eslint-output.json
+eslint-output.json
+
