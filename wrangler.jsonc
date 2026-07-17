@@ -32,8 +32,6 @@
   "vars": {
     "NEXTAUTH_URL": "https://ecosalon.ceonguyenvandung84.workers.dev",
     "NEXTAUTH_SECRET": "cKstVMFRIaCXsPIg3FEauXLJ8Hv1IFZZ",
-    "AWS_REGION": "us-west-2",
-    "AWS_BUCKET_NAME": "abacusai-apps-97bb98331c12966ffea0e554-us-west-2",
-    "AWS_FOLDER_PREFIX": "57507/"
+    "R2_PUBLIC_URL": "https://pub-ecosalon.r2.cloudflarestorage.com"
   }
 }

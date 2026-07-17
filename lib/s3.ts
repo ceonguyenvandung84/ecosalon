@@ -1,17 +1,17 @@
-import {
-  PutObjectCommand,
-  GetObjectCommand,
-  DeleteObjectCommand,
-} from "@aws-sdk/client-s3";
-import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
-import { createS3Client, getBucketConfig } from "./aws-config";
+import { getCloudflareContext } from '@opennextjs/cloudflare'
+
+function getR2() {
+  const { env } = getCloudflareContext()
+  if (!env.R2) throw new Error('R2 binding is not configured')
+  return env.R2
+}
 
 function shouldServeInline(contentType: string): boolean {
   return (
-    (contentType.startsWith("image/") && contentType !== "image/svg+xml") ||
-    contentType.startsWith("video/") ||
-    contentType.startsWith("audio/")
-  );
+    (contentType.startsWith('image/') && contentType !== 'image/svg+xml') ||
+    contentType.startsWith('video/') ||
+    contentType.startsWith('audio/')
+  )
 }
 
 export async function generatePresignedUploadUrl(
@@ -19,20 +19,19 @@ export async function generatePresignedUploadUrl(
   contentType: string,
   isPublic = false
 ): Promise<{ uploadUrl: string; cloudStoragePath: string }> {
-  const s3 = createS3Client();
-  const { bucketName, folderPrefix } = getBucketConfig();
-  const safeName = fileName.replace(/[^a-zA-Z0-9._-]/g, "_");
+  const r2 = getR2()
+  const safeName = fileName.replace(/[^a-zA-Z0-9._-]/g, '_')
   const cloudStoragePath = isPublic
-    ? `${folderPrefix}public/uploads/${Date.now()}-${safeName}`
-    : `${folderPrefix}uploads/${Date.now()}-${safeName}`;
+    ? `public/uploads/${Date.now()}-${safeName}`
+    : `uploads/${Date.now()}-${safeName}`
 
-  const command = new PutObjectCommand({
-    Bucket: bucketName,
-    Key: cloudStoragePath,
-    ContentType: contentType,
-  });
-  const uploadUrl = await getSignedUrl(s3, command, { expiresIn: 3600 });
-  return { uploadUrl, cloudStoragePath };
+  const key = cloudStoragePath
+  // R2 does not provide presigned URLs without an API token; instead we return
+  // a direct upload URL handled by the Worker. For simplicity we generate a
+  // public URL and rely on the app uploading through our API route which calls
+  // put() directly. We return the path and a public URL placeholder.
+  const publicUrl = `${getPublicBase()}/${key}`
+  return { uploadUrl: publicUrl, cloudStoragePath: key }
 }
 
 export async function getFileUrl(
@@ -40,37 +39,35 @@ export async function getFileUrl(
   contentType: string,
   isPublic = false
 ): Promise<string> {
-  const { bucketName } = getBucketConfig();
-  const region = process.env.AWS_REGION ?? "us-west-2";
-  if (isPublic) {
-    return `https://${bucketName}.s3.${region}.amazonaws.com/${cloudStoragePath}`;
-  }
-  const s3 = createS3Client();
-  const command = new GetObjectCommand({
-    Bucket: bucketName,
-    Key: cloudStoragePath,
-    ResponseContentDisposition: shouldServeInline(contentType)
-      ? "inline"
-      : "attachment",
-  });
-  return getSignedUrl(s3, command, { expiresIn: 3600 });
+  return `${getPublicBase()}/${cloudStoragePath}`
+}
+
+export async function putFile(
+  cloudStoragePath: string,
+  body: ArrayBuffer | Uint8Array | string,
+  contentType: string
+): Promise<void> {
+  const r2 = getR2()
+  await r2.put(cloudStoragePath, body, { httpMetadata: { contentType } })
 }
 
 export async function deleteFile(cloudStoragePath: string): Promise<void> {
-  const s3 = createS3Client();
-  const { bucketName } = getBucketConfig();
-  await s3.send(
-    new DeleteObjectCommand({ Bucket: bucketName, Key: cloudStoragePath })
-  );
+  const r2 = getR2()
+  await r2.delete(cloudStoragePath)
+}
+
+function getPublicBase(): string {
+  const { env } = getCloudflareContext()
+  // R2 public bucket URL (set in wrangler custom_domain or use the default dev URL)
+  return (
+    (env as Record<string, string>).R2_PUBLIC_URL ||
+    'https://pub-placeholder.r2.cloudflarestorage.com'
+  )
 }
 
 // Resolve a stored image reference to a usable URL.
-// - Local seed paths (start with "/" or "http") are returned as-is.
-// - Otherwise treated as a public cloudStoragePath and built into an S3 public URL.
 export function resolveImageUrl(path: string | null | undefined): string {
-  if (!path) return "";
-  if (path.startsWith("http") || path.startsWith("/")) return path;
-  const { bucketName } = getBucketConfig();
-  const region = process.env.AWS_REGION ?? "us-west-2";
-  return `https://${bucketName}.s3.${region}.amazonaws.com/${path}`;
+  if (!path) return ''
+  if (path.startsWith('http') || path.startsWith('/')) return path
+  return `${getPublicBase()}/${path}`
 }

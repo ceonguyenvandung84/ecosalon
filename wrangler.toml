@@ -1,0 +1,22 @@
+name = "ecosalon"
+pages_build_output_dir = ".open-next/assets"
+compatibility_date = "2025-09-01"
+compatibility_flags = ["nodejs_compat", "enable_nodejs_fs_module"]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "ecosalon-db"
+database_id = "7c6ba1ec-cc4e-437a-bb71-50054fb52f46"
+
+[[kv_namespaces]]
+binding = "MAINTENANCE_KV"
+id = "bdffd9ca54c241a5abcc1d684b1e2ae8"
+
+[[kv_namespaces]]
+binding = "RATE_LIMIT_KV"
+id = "c393f2ce279e4c43b316fff60eb72d1d"
+
+[vars]
+NEXTAUTH_URL = "https://ecosalon.pages.dev"
+NEXTAUTH_SECRET = "cKstVMFRIaCXsPIg3FEauXLJ8Hv1IFZZ"
+R2_PUBLIC_URL = "https://pub-ecosalon.r2.cloudflarestorage.com"

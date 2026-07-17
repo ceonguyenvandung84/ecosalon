@@ -1,0 +1,699 @@
+{
+ "User": {
+  "columns": [
+   "id",
+   "email",
+   "password",
+   "fullName",
+   "role",
+   "avatarPath",
+   "avatarPublic",
+   "phone",
+   "bio",
+   "isActive",
+   "createdAt",
+   "updatedAt",
+   "passwordChangedAt",
+   "referredByAffiliateId",
+   "tags"
+  ],
+  "fks": []
+ },
+ "PasswordResetToken": {
+  "columns": [
+   "id",
+   "userId",
+   "token",
+   "expires",
+   "used",
+   "createdAt"
+  ],
+  "fks": []
+ },
+ "Category": {
+  "columns": [
+   "id",
+   "name",
+   "slug",
+   "type",
+   "icon",
+   "description",
+   "createdAt"
+  ],
+  "fks": []
+ },
+ "Brand": {
+  "columns": [
+   "id",
+   "name",
+   "slug",
+   "logoPath",
+   "description",
+   "createdAt"
+  ],
+  "fks": []
+ },
+ "Coupon": {
+  "columns": [
+   "id",
+   "code",
+   "label",
+   "type",
+   "value",
+   "minOrderAmount",
+   "maxDiscount",
+   "usageLimit",
+   "usedCount",
+   "courseIds",
+   "affiliateId",
+   "startsAt",
+   "expiresAt",
+   "isActive",
+   "createdAt"
+  ],
+  "fks": []
+ },
+ "CouponUsage": {
+  "columns": [
+   "id",
+   "couponId",
+   "userId",
+   "orderId",
+   "discount",
+   "usedAt"
+  ],
+  "fks": []
+ },
+ "Course": {
+  "columns": [
+   "id",
+   "title",
+   "slug",
+   "shortDesc",
+   "description",
+   "thumbnailPath",
+   "thumbnailPublic",
+   "price",
+   "discountPrice",
+   "level",
+   "durationHours",
+   "instructorName",
+   "instructorBio",
+   "instructorAvatar",
+   "instructorId",
+   "categoryId",
+   "isPublished",
+   "isFeatured",
+   "studentsCount",
+   "metaTitle",
+   "metaDescription",
+   "ogImage",
+   "requirements",
+   "objectives",
+   "tags",
+   "prerequisiteIds",
+   "createdAt",
+   "updatedAt"
+  ],
+  "fks": []
+ },
+ "Lesson": {
+  "columns": [
+   "id",
+   "courseId",
+   "title",
+   "slug",
+   "description",
+   "content",
+   "videoUrl",
+   "videoProvider",
+   "thumbnailPath",
+   "attachments",
+   "durationMin",
+   "order",
+   "isPreview",
+   "isPublished",
+   "createdAt",
+   "updatedAt"
+  ],
+  "fks": []
+ },
+ "LessonProgress": {
+  "columns": [
+   "id",
+   "userId",
+   "lessonId",
+   "completed",
+   "completedAt",
+   "createdAt"
+  ],
+  "fks": []
+ },
+ "Quiz": {
+  "columns": [
+   "id",
+   "lessonId",
+   "title",
+   "description",
+   "passPercent",
+   "timeLimit",
+   "isPublished",
+   "attemptLimit",
+   "createdAt",
+   "updatedAt"
+  ],
+  "fks": []
+ },
+ "Question": {
+  "columns": [
+   "id",
+   "quizId",
+   "type",
+   "text",
+   "options",
+   "correctAnswer",
+   "matchedPairs",
+   "correctOrder",
+   "explanation",
+   "order",
+   "points"
+  ],
+  "fks": []
+ },
+ "QuizAttempt": {
+  "columns": [
+   "id",
+   "quizId",
+   "userId",
+   "score",
+   "passed",
+   "answers",
+   "startedAt",
+   "completedAt",
+   "timeSpent"
+  ],
+  "fks": []
+ },
+ "CertificateTemplate": {
+  "columns": [
+   "id",
+   "title",
+   "description",
+   "svgTemplate",
+   "backgroundPath",
+   "fields",
+   "fonts",
+   "placeholder",
+   "isDefault",
+   "isActive",
+   "createdAt",
+   "updatedAt"
+  ],
+  "fks": []
+ },
+ "Certificate": {
+  "columns": [
+   "id",
+   "userId",
+   "courseId",
+   "templateId",
+   "issueDate",
+   "expiryDate",
+   "certificateNumber",
+   "studentName",
+   "courseTitle",
+   "instructorName",
+   "completionDate",
+   "metadata",
+   "verifiedAt",
+   "isRevoked",
+   "enrollmentId"
+  ],
+  "fks": []
+ },
+ "CourseQuestion": {
+  "columns": [
+   "id",
+   "courseId",
+   "userId",
+   "title",
+   "content",
+   "isResolved",
+   "createdAt",
+   "updatedAt"
+  ],
+  "fks": []
+ },
+ "CourseAnswer": {
+  "columns": [
+   "id",
+   "questionId",
+   "userId",
+   "content",
+   "isCorrect",
+   "createdAt",
+   "updatedAt"
+  ],
+  "fks": []
+ },
+ "Product": {
+  "columns": [
+   "id",
+   "title",
+   "slug",
+   "shortDesc",
+   "description",
+   "images",
+   "price",
+   "discountPercent",
+   "categoryId",
+   "brandId",
+   "stock",
+   "sku",
+   "specifications",
+   "isPublished",
+   "isFeatured",
+   "soldCount",
+   "metaTitle",
+   "metaDescription",
+   "ogImage",
+   "createdAt",
+   "updatedAt"
+  ],
+  "fks": []
+ },
+ "ProductVariant": {
+  "columns": [
+   "id",
+   "productId",
+   "sku",
+   "name",
+   "price",
+   "stock",
+   "weight",
+   "dimensions",
+   "isDefault",
+   "isActive",
+   "createdAt",
+   "updatedAt"
+  ],
+  "fks": []
+ },
+ "Enrollment": {
+  "columns": [
+   "id",
+   "userId",
+   "courseId",
+   "progress",
+   "enrolledAt",
+   "orderId",
+   "paidAt",
+   "source",
+   "certificateId"
+  ],
+  "fks": []
+ },
+ "Review": {
+  "columns": [
+   "id",
+   "userId",
+   "type",
+   "courseId",
+   "productId",
+   "rating",
+   "comment",
+   "createdAt"
+  ],
+  "fks": []
+ },
+ "Wishlist": {
+  "columns": [
+   "id",
+   "userId",
+   "productId",
+   "createdAt"
+  ],
+  "fks": []
+ },
+ "Setting": {
+  "columns": [
+   "id",
+   "key",
+   "value",
+   "updatedAt"
+  ],
+  "fks": []
+ },
+ "Cart": {
+  "columns": [
+   "id",
+   "userId",
+   "createdAt",
+   "updatedAt"
+  ],
+  "fks": []
+ },
+ "CartItem": {
+  "columns": [
+   "id",
+   "cartId",
+   "productId",
+   "quantity",
+   "createdAt",
+   "updatedAt"
+  ],
+  "fks": []
+ },
+ "Order": {
+  "columns": [
+   "id",
+   "orderCode",
+   "userId",
+   "orderType",
+   "status",
+   "subtotal",
+   "shippingFee",
+   "total",
+   "customerName",
+   "customerPhone",
+   "customerEmail",
+   "shippingAddress",
+   "note",
+   "paymentMethod",
+   "paidAt",
+   "createdAt",
+   "updatedAt"
+  ],
+  "fks": []
+ },
+ "OrderItem": {
+  "columns": [
+   "id",
+   "orderId",
+   "itemType",
+   "courseId",
+   "productId",
+   "productTitle",
+   "productImage",
+   "unitPrice",
+   "quantity",
+   "lineTotal"
+  ],
+  "fks": []
+ },
+ "PaymentTransaction": {
+  "columns": [
+   "id",
+   "orderId",
+   "method",
+   "amount",
+   "status",
+   "transactionNo",
+   "payload",
+   "createdAt",
+   "updatedAt"
+  ],
+  "fks": []
+ },
+ "Affiliate": {
+  "columns": [
+   "id",
+   "userId",
+   "code",
+   "status",
+   "commissionRate",
+   "balance",
+   "totalEarned",
+   "totalPaid",
+   "payoutBankName",
+   "payoutAccountNumber",
+   "payoutAccountName",
+   "clickCount",
+   "approvedAt",
+   "createdAt",
+   "updatedAt"
+  ],
+  "fks": []
+ },
+ "Commission": {
+  "columns": [
+   "id",
+   "affiliateId",
+   "orderId",
+   "orderCode",
+   "amount",
+   "rate",
+   "status",
+   "holdUntil",
+   "releasedAt",
+   "createdAt"
+  ],
+  "fks": []
+ },
+ "Payout": {
+  "columns": [
+   "id",
+   "affiliateId",
+   "amount",
+   "status",
+   "bankName",
+   "accountNumber",
+   "accountName",
+   "note",
+   "processedAt",
+   "createdAt"
+  ],
+  "fks": []
+ },
+ "BlogCategory": {
+  "columns": [
+   "id",
+   "name",
+   "slug",
+   "description",
+   "createdAt"
+  ],
+  "fks": []
+ },
+ "BlogPost": {
+  "columns": [
+   "id",
+   "title",
+   "slug",
+   "excerpt",
+   "content",
+   "coverImage",
+   "categoryId",
+   "authorId",
+   "isPublished",
+   "isFeatured",
+   "viewCount",
+   "publishedAt",
+   "createdAt",
+   "updatedAt"
+  ],
+  "fks": []
+ },
+ "BlogComment": {
+  "columns": [
+   "id",
+   "post_id",
+   "user_id",
+   "content",
+   "is_hidden",
+   "created_at"
+  ],
+  "fks": []
+ },
+ "ForumCategory": {
+  "columns": [
+   "id",
+   "name",
+   "slug",
+   "description",
+   "icon",
+   "order",
+   "created_at"
+  ],
+  "fks": []
+ },
+ "ForumThread": {
+  "columns": [
+   "id",
+   "title",
+   "slug",
+   "content",
+   "categoryId",
+   "authorId",
+   "isPinned",
+   "isLocked",
+   "isHidden",
+   "viewCount",
+   "replyCount",
+   "lastReplyAt",
+   "createdAt",
+   "updatedAt"
+  ],
+  "fks": []
+ },
+ "ForumReply": {
+  "columns": [
+   "id",
+   "threadId",
+   "authorId",
+   "content",
+   "isHidden",
+   "createdAt",
+   "updatedAt"
+  ],
+  "fks": []
+ },
+ "CustomerNote": {
+  "columns": [
+   "id",
+   "userId",
+   "authorId",
+   "content",
+   "createdAt"
+  ],
+  "fks": []
+ },
+ "Notification": {
+  "columns": [
+   "id",
+   "userId",
+   "type",
+   "title",
+   "message",
+   "link",
+   "isRead",
+   "createdAt"
+  ],
+  "fks": []
+ },
+ "AdminActivity": {
+  "columns": [
+   "id",
+   "userId",
+   "action",
+   "entity",
+   "entityId",
+   "detail",
+   "createdAt"
+  ],
+  "fks": []
+ },
+ "InstructorProfile": {
+  "columns": [
+   "id",
+   "userId",
+   "title",
+   "expertise",
+   "socialLinks",
+   "education",
+   "totalStudents",
+   "totalRevenue",
+   "rating",
+   "createdAt",
+   "updatedAt"
+  ],
+  "fks": []
+ },
+ "InstructorApplication": {
+  "columns": [
+   "id",
+   "userId",
+   "email",
+   "fullName",
+   "bio",
+   "expertise",
+   "experience",
+   "motivation",
+   "status",
+   "adminNote",
+   "reviewedBy",
+   "reviewedAt",
+   "createdAt",
+   "updatedAt"
+  ],
+  "fks": []
+ },
+ "CourseWishlist": {
+  "columns": [
+   "id",
+   "userId",
+   "courseId",
+   "notes",
+   "createdAt"
+  ],
+  "fks": []
+ },
+ "Tag": {
+  "columns": [
+   "id",
+   "name",
+   "slug",
+   "type",
+   "description",
+   "createdAt"
+  ],
+  "fks": []
+ },
+ "CourseTag": {
+  "columns": [
+   "id",
+   "courseId",
+   "tagId"
+  ],
+  "fks": []
+ },
+ "ProductTag": {
+  "columns": [
+   "id",
+   "productId",
+   "tagId"
+  ],
+  "fks": []
+ },
+ "BlogPostTag": {
+  "columns": [
+   "id",
+   "postId",
+   "tagId"
+  ],
+  "fks": []
+ },
+ "UserAddress": {
+  "columns": [
+   "id",
+   "userId",
+   "type",
+   "label",
+   "fullName",
+   "phone",
+   "addressLine1",
+   "addressLine2",
+   "city",
+   "state",
+   "postalCode",
+   "country",
+   "isDefault",
+   "createdAt",
+   "updatedAt"
+  ],
+  "fks": []
+ },
+ "FAQ": {
+  "columns": [
+   "id",
+   "question",
+   "answer",
+   "category",
+   "order",
+   "isActive",
+   "createdAt",
+   "updatedAt"
+  ],
+  "fks": []
+ }
+}
