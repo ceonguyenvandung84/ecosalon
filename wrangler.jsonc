@@ -1,0 +1,39 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "main": ".open-next/worker.js",
+  "name": "ecosalon",
+  "compatibility_date": "2025-09-01",
+  "compatibility_flags": [
+    "nodejs_compat",
+    "enable_nodejs_fs_module"
+  ],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "ecosalon-db",
+      "database_id": "7c6ba1ec-cc4e-437a-bb71-50054fb52f46",
+      "migrations_dir": "prisma/migrations"
+    }
+  ],
+  "kv_namespaces": [
+    {
+      "binding": "MAINTENANCE_KV",
+      "id": "bdffd9ca54c241a5abcc1d684b1e2ae8"
+    },
+    {
+      "binding": "RATE_LIMIT_KV",
+      "id": "c393f2ce279e4c43b316fff60eb72d1d"
+    }
+  ],
+  "vars": {
+    "NEXTAUTH_URL": "https://ecosalon.ceonguyenvandung84.workers.dev",
+    "NEXTAUTH_SECRET": "cKstVMFRIaCXsPIg3FEauXLJ8Hv1IFZZ",
+    "AWS_REGION": "us-west-2",
+    "AWS_BUCKET_NAME": "abacusai-apps-97bb98331c12966ffea0e554-us-west-2",
+    "AWS_FOLDER_PREFIX": "57507/"
+  }
+}

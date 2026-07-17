@@ -1,5 +1,7 @@
 const path = require('path');
 
+const { initOpenNextCloudflareForDev } = require('@opennextjs/cloudflare');
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   distDir: process.env.NEXT_DIST_DIR || '.next',
@@ -43,3 +45,5 @@ const nextConfig = {
 };
 
 module.exports = nextConfig;
+
+initOpenNextCloudflareForDev();

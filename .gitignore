@@ -13,3 +13,9 @@ dev.db-journal
 .eslint-output.json
 eslint-output.json
 
+
+.open-next
+.dev.vars
+
+.wrangler/
+node_modules/
