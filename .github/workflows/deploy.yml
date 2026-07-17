@@ -34,4 +34,4 @@ jobs:
         run: npx prisma generate
 
       - name: Build & Deploy (OpenNext -> Cloudflare Workers)
-        run: npx opennextjs-cloudflare build --dangerouslyUseUnsupportedNextVersion && npx opennextjs-cloudflare deploy
+        run: npx opennextjs-cloudflare build && npx opennextjs-cloudflare deploy
