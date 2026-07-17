@@ -41,6 +41,13 @@ jobs:
           rm -rf pages-deploy
           mkdir -p pages-deploy/functions
           cp -r .open-next/assets/* pages-deploy/
+          # Move all OpenNext runtime files (except assets) into functions/ so
+          # the Pages Functions worker can resolve its relative imports.
+          cp -r .open-next/cloudflare pages-deploy/functions/
+          cp -r .open-next/middleware pages-deploy/functions/
+          cp -r .open-next/.build pages-deploy/functions/
+          cp -r .open-next/server-functions pages-deploy/functions/
+          cp -r .open-next/cache pages-deploy/functions/ 2>/dev/null || true
           cp .open-next/worker.js pages-deploy/functions/_worker.js
 
       - name: Deploy to Cloudflare Pages
